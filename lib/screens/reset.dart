@@ -59,19 +59,20 @@ class _ResetPasswordPageState extends State<ResetPasswordScreen> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Image.asset('assets/images/user_icon.png', height: 135,),
-                      const Text(
+                      SizedBox(
+                      height: 110, width: 200,
+                      child: Image.asset('assets/images/user_icon.png',
+                      fit: BoxFit.cover,)),
+                      const SizedBox(height: 25,),
+                      Text(
                         "Reset Password",
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        "Enter your email to reset your password",
+                        "Enter your Email & \n Reset your password",
                         style: TextStyle(fontSize: 15, color: Colors.grey[700]),
                         textAlign: TextAlign.center,
                       ),
@@ -110,12 +111,15 @@ class _ResetPasswordPageState extends State<ResetPasswordScreen> {
                             resetPassword();
                             showDialog(context: context, builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text("Email Sent"),
-                                content: const Text("Check your email and restart your password"),
+                                title:  Center(
+                                  child: Text("Email Sent !!", 
+                                  style: Theme.of(context).textTheme.titleMedium, ),
+                                ),
+                                content: Text("Check your email and reset your password",
+                                style: Theme.of(context).textTheme.bodyMedium,),
                                 actions: [TextButton(onPressed: () {
-                                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
                                   context.router.push(const LoginRoute());
-                                }, child: const Text("Ok"))],
+                                }, child: const Text("OK"))],
                               );
                             });
                           }
@@ -136,14 +140,12 @@ class _ResetPasswordPageState extends State<ResetPasswordScreen> {
                         "Remember your password?",
                         style: TextStyle(fontSize: 18),
                       ),
-                      TextButton(
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
                           onPressed: () {
                             context.router.push(const LoginRoute());
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => const LoginPage(),
-                            //     ));
                           },
                           child: const Text(
                             "Login",

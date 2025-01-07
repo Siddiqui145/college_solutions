@@ -104,13 +104,14 @@ class _SignupPageState extends State<SignupScreen> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Image.asset('assets/images/user_icon.png', height: 135,),
-                    const Text(
+                    SizedBox(
+                    height: 110, width: 200,
+                    child: Image.asset('assets/images/user_icon.png',
+                    fit: BoxFit.cover,)),
+                    const SizedBox(height: 25,),
+                    Text(
                       "Sign up",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500)
                     ),
                     
                   ],
@@ -212,14 +213,12 @@ class _SignupPageState extends State<SignupScreen> {
                       "Remember your password?",
                       style: TextStyle(fontSize: 18),
                     ),
-                    TextButton(
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
                         onPressed: () {
                           context.router.push(const LoginRoute());
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => const LoginPage(),
-                          //     ));
                         },
                         child: const Text(
                           "Login",

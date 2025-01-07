@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:chatbotapp/router/router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {
@@ -31,10 +30,7 @@ class _LoginPageState extends State<LoginScreen> {
       );
 
       if (userCredential.user != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
+        context.router.replace(const HomeRoute());
       }
     } on FirebaseAuthException catch (e) {
       // Specific error handling based on FirebaseAuthException codes
@@ -106,17 +102,20 @@ class _LoginPageState extends State<LoginScreen> {
 
   _header(BuildContext context) {
     return Column(
-      
       children: [
-        Image.asset('assets/images/user_icon.png', height: 135,),
-        const SizedBox(height: 15,),
-       const Text(
-          "Diems Solution",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        SizedBox(
+          height: 110, width: 200,
+          child: Image.asset('assets/images/user_icon.png',
+          fit: BoxFit.cover,)),
+        const SizedBox(height: 25,),
+        Text(
+          "Login",
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500)
         ),
-        const SizedBox(height: 15,),
-       const Text("Enter your credentials"),
-       const SizedBox(height: 20,),
+        const SizedBox(height: 20,),
+       Text("Enter your credentials",
+       style: Theme.of(context).textTheme.bodyMedium,),
+       const SizedBox(height: 25,),
       ],
     );
   }
@@ -139,7 +138,8 @@ class _LoginPageState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(18),
               borderSide: BorderSide.none,
             ),
-            fillColor: const Color.fromARGB(255, 23, 16, 239).withOpacity(0.1),
+            fillColor: const Color.fromARGB(255, 96, 100, 163)
+                              .withOpacity(0.1),
             filled: true,
             prefixIcon: const Icon(Icons.person),
           ),
@@ -159,7 +159,8 @@ class _LoginPageState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(18),
               borderSide: BorderSide.none,
             ),
-            fillColor: const Color.fromARGB(255, 23, 16, 239).withOpacity(0.1),
+            fillColor: const Color.fromARGB(255, 96, 100, 163)
+                              .withOpacity(0.1),
             filled: true,
             prefixIcon: const Icon(Icons.lock),
           ),
@@ -179,7 +180,7 @@ class _LoginPageState extends State<LoginScreen> {
                     content: const Text("Logged into Diems Solution SUccessfully!"),
                     actions: [
                       TextButton(onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+                        context.router.push(const HomeRoute());
                       }, child: const Text("ok"))
                     ],
                   );
@@ -193,9 +194,9 @@ class _LoginPageState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             backgroundColor: Colors.lightBlue,
           ),
-          child: const Text(
+          child: Text(
             "Login",
-            style: TextStyle(fontSize: 20),
+            style:Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white)
           ),
         ),
         const SizedBox(height: 30,),
@@ -228,13 +229,9 @@ class _LoginPageState extends State<LoginScreen> {
           style: TextStyle(fontSize: 16),
         ),
         const SizedBox(height: 20,),
-        TextButton(
+        ElevatedButton(
           onPressed: () {
             context.router.push(const SignupRoute());
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const SignupPage()),
-            // );
           },
           child: const Text(
             "Sign Up",
