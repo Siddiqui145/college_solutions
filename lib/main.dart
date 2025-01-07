@@ -1,10 +1,12 @@
-import 'package:chatbotapp/screens/splash_screen.dart';
+import 'package:chatbotapp/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:chatbotapp/themes/my_theme.dart';
 import 'package:chatbotapp/providers/chat_provider.dart';
 import 'package:chatbotapp/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
+
+final appRouter = AppRouter();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,12 +44,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter.config(),
       title: 'Flutter Chat Bot App',
       theme: lightTheme, // Apply the light theme
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      //home: const SplashScreen(),
       // home: FirebaseAuth.instance.currentUser != null
       //     ? const SplashScreen()
       //     : const LoginPage(),
