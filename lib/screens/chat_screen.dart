@@ -57,9 +57,9 @@ class _ChatScreenState extends State<ChatScreen> {
           appBar: AppBar(
             backgroundColor: Colors.blue,
             centerTitle: true,
-            title: const Text(
+            title: Text(
               'Ask Me',
-              style: TextStyle(fontSize: 22, color:   Colors.black),
+              style: Theme.of(context).textTheme.titleLarge
             ),
             actions: [
               if (chatProvider.inChatMessages.isNotEmpty)
@@ -96,8 +96,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Expanded(
                     child: chatProvider.inChatMessages.isEmpty
-                        ? const Center(
-                            child: Text('No messages yet'),
+                        ?   Center(
+                            child: Text('No messages yet',
+                            style: Theme.of(context).textTheme.bodyLarge, ),
                           )
                         : ChatMessages(
                             scrollController: _scrollController,

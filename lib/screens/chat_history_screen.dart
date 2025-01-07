@@ -21,9 +21,9 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Chat history',
-          style: TextStyle(fontSize: 22, color:   Colors.black),
+          style: Theme.of(context).textTheme.titleLarge
         ),
       ),
       body: ValueListenableBuilder<Box<ChatHistory>>(
@@ -34,7 +34,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
           return chatHistory.isEmpty
               ? const EmptyHistoryWidget()
               : Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: ListView.builder(
                     itemCount: chatHistory.length,
                     itemBuilder: (context, index) {
