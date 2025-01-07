@@ -100,13 +100,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+Future<void> launchExternalUrl(BuildContext context, String url) async {
+  final Uri uri = Uri.parse(url);
+
+  try {
+    if (!await canLaunchUrl(uri)) {
+      throw Exception("Cannot launch $url");
+    }
+
+    // Use external application mode for better handling
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } catch (e) {
+    debugPrint("Error launching URL: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Failed to open the URL: $url")),
+    );
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Profile',
-          style: TextStyle(fontSize: 22, color: Colors.black),
+          style: Theme.of(context).textTheme.titleLarge
         ),
         centerTitle: true,
         backgroundColor: isDarkTheme ? Colors.black87 : Colors.blue,
@@ -266,57 +284,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTile(
               leading: const Icon(Icons.update),
               title: const Text('New Updates'),
-              onTap: () async {
-                final Uri url = Uri.parse("https://dbatu.ac.in/tag/examination-timetable/");
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              },
+              onTap: () => launchExternalUrl(context, "https://dbatu.ac.in/tag/examination-timetable/"),
+              
             ),
             ListTile(
               leading: const Icon(Icons.wechat_sharp),
               title: const Text('Whatsapp Channel'),
-              onTap: () async {
-                final Uri url =
-                    Uri.parse("https://whatsapp.com/channel/0029Va9h9VZ35fLo6rykj30u");
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              },
+              onTap: () => launchExternalUrl(context, "https://whatsapp.com/channel/0029Va9h9VZ35fLo6rykj30u"),
             ),
 
             ListTile(
               leading: const Icon(Icons.money_sharp),
               title: const Text('Fees Portal'),
-              onTap: () async {
-                final Uri url = Uri.parse("https://server.mspmandal.in/dengpmt");
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              },
+              onTap :() => launchExternalUrl(context, "https://server.mspmandal.in/dengpmt"),
             ),
 
             ListTile(
               leading: const Icon(Icons.feedback),
               title: const Text('Feedback Page'),
-              onTap: () async {
-                final Uri url = Uri.parse("http://smartfeedbacktandp.auradigital.in/");
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              },
+              onTap :() => launchExternalUrl(context, "http://smartfeedbacktandp.auradigital.in/"),
             ),
 
             ListTile(
               leading: const Icon(Icons.panorama_photosphere),
               title: const Text('Previous Year Papers'),
-              onTap: () async {
-                final Uri url = Uri.parse(
-                    "https://drive.google.com/drive/folders/1v0UqvKvsE458TDzNe02ib11YLyLfD5un");
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              },
+              onTap :() => launchExternalUrl(context, "https://drive.google.com/drive/folders/1v0UqvKvsE458TDzNe02ib11YLyLfD5un"),
             ),
 
             ListTile(
