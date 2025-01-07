@@ -1,19 +1,20 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
-import 'package:chatbotapp/screens/reset.dart';
-import 'package:chatbotapp/screens/signup.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:chatbotapp/router/router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+@RoutePage()
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginScreen> {
   String email = "", password = "";
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
@@ -205,9 +206,9 @@ class _LoginPageState extends State<LoginPage> {
   _forgotPassword(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
-
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
+        context.router.push(const ResetPasswordRoute());
       },
       child: const Text(
         "Forgot password?",
@@ -229,10 +230,11 @@ class _LoginPageState extends State<LoginPage> {
         const SizedBox(height: 20,),
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SignupPage()),
-            );
+            context.router.push(const SignupRoute());
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const SignupPage()),
+            // );
           },
           child: const Text(
             "Sign Up",

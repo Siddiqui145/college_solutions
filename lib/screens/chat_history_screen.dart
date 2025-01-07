@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:chatbotapp/hive/boxes.dart';
 import 'package:chatbotapp/hive/chat_history.dart';
@@ -5,6 +6,7 @@ import 'package:chatbotapp/widgets/chat_history_widget.dart';
 import 'package:chatbotapp/widgets/empty_history_widget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+@RoutePage()
 class ChatHistoryScreen extends StatefulWidget {
   const ChatHistoryScreen({super.key});
 

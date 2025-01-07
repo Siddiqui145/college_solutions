@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chatbotapp/providers/chat_provider.dart';
@@ -6,6 +7,7 @@ import 'package:chatbotapp/widgets/bottom_chat_field.dart';
 import 'package:chatbotapp/widgets/chat_messages.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage()
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 

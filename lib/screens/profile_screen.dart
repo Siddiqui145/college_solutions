@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:chatbotapp/screens/login.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:chatbotapp/router/router.dart';
+//import 'package:chatbotapp/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@RoutePage()
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -326,7 +329,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     content: const Text("Logged out Successfully from Diems Solution"),
                     actions: [
                       TextButton(onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                        context.router.push(const LoginRoute());
                       }, child: const Text("Ok"))
                     ],
                   );

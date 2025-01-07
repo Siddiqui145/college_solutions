@@ -1,17 +1,20 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:chatbotapp/screens/login.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:chatbotapp/router/router.dart';
+//import 'package:chatbotapp/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({super.key});
+@RoutePage()
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordPageState();
 }
 
-class _ResetPasswordPageState extends State<ResetPasswordPage> {
+class _ResetPasswordPageState extends State<ResetPasswordScreen> {
   String email = "";
 
   TextEditingController mailcontroller = TextEditingController();
@@ -110,7 +113,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 title: const Text("Email Sent"),
                                 content: const Text("Check your email and restart your password"),
                                 actions: [TextButton(onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                                  context.router.push(const LoginRoute());
                                 }, child: const Text("Ok"))],
                               );
                             });
@@ -134,11 +138,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ));
+                            context.router.push(const LoginRoute());
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const LoginPage(),
+                            //     ));
                           },
                           child: const Text(
                             "Login",
