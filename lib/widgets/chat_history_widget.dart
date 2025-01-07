@@ -17,6 +17,7 @@ class ChatHistoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(8),
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: 10.0, right: 10.0),
         leading: const CircleAvatar(
@@ -41,6 +42,7 @@ class ChatHistoryWidget extends StatelessWidget {
             chatID: chat.chatId,
           );
           //chatProvider.setCurrentIndex(newIndex: 1);
+          // ignore: use_build_context_synchronously
           AutoTabsRouter.of(context).setActiveIndex(1);
           chatProvider.pageController.jumpToPage(1);
         },
