@@ -133,14 +133,16 @@ Future<void> launchExternalUrl(BuildContext context, String url) async {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            UserAccountsDrawerHeader(
-              accountName: Text(userName),
-              accountEmail: Text(userEmail),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/user_icon.png'),
-              ),
-              decoration: BoxDecoration(
-                color: isDarkTheme ? Colors.black87 : Colors.blue,
+            Center(
+              child: UserAccountsDrawerHeader(
+                accountName: Text(userName),
+                accountEmail: Text(userEmail),
+                currentAccountPicture: const CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/user_icon.png'),
+                ),
+                decoration: BoxDecoration(
+                  color: isDarkTheme ? Colors.black87 : Colors.blue,
+                ),
               ),
             ),
 
@@ -340,28 +342,32 @@ Future<void> launchExternalUrl(BuildContext context, String url) async {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.asset(
-                'assets/images/user_icon.png',
-                width: 100,
-                height: 100,
+              child: SizedBox(
+                width: 250,
+                height: 120,
+                child: Image.asset(
+                  'assets/images/user_icon.png',
+                  //width: 100,
+                  //height: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 20.0),
             Center(
               child: Text(
-                userName,
+                "Welcome, $userEmail",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
-            const SizedBox(height: 30.0),
-            const Text(
-              'Important Notifications',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 50.0),
+             Center(
+               child: Text(
+                'Important Notifications',
+                style: Theme.of(context).textTheme.titleMedium,
+                           ),
+             ),
+            const SizedBox(height: 20.0),
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('notifications')
@@ -378,13 +384,18 @@ Future<void> launchExternalUrl(BuildContext context, String url) async {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       var notification = snapshot.data!.docs[index];
-                      return ListTile(
-                        leading: const CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/user_icon.png'),
+                      return Card(
+                        //elevation: 2,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        margin: const EdgeInsets.all(8),
+                        child: ListTile(
+                          leading: const CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/user_icon.png'),
+                          ),
+                          title: Text(notification['title']),
+                          subtitle: Text(notification['description']),
                         ),
-                        title: Text(notification['title']),
-                        subtitle: Text(notification['description']),
                       );
                     },
                   ),
