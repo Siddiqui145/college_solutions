@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chatbotapp/hive/chat_history.dart';
@@ -39,7 +40,8 @@ class ChatHistoryWidget extends StatelessWidget {
             isNewChat: false,
             chatID: chat.chatId,
           );
-          chatProvider.setCurrentIndex(newIndex: 1);
+          //chatProvider.setCurrentIndex(newIndex: 1);
+          AutoTabsRouter.of(context).setActiveIndex(1);
           chatProvider.pageController.jumpToPage(1);
         },
         onLongPress: () {
