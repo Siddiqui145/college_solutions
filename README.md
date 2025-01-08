@@ -79,7 +79,9 @@ Follow these steps to get the project running locally:
 
 ## Demo 🎥
 
-Here’s a short demo video showcasing the app's functionalities: [Demo Video Link](https://youtu.be/your-demo-link)
+Here’s a short demo video showcasing the app's functionalities: 
+
+https://github.com/user-attachments/assets/2bf3e87c-a7b4-4faa-854b-9ca42211d7b3
 
 ---
 
