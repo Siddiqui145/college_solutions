@@ -24,47 +24,41 @@ class _LoginPageState extends State<LoginScreen> {
     try {
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailcontroller.text
-            .trim(), // Trim to avoid leading/trailing spaces
+        email: emailcontroller.text.trim(),
         password: passwordcontroller.text.trim(),
       );
 
       if (userCredential.user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Login Successful!",
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
+        ));
         context.router.replace(const HomeRoute());
       }
     } on FirebaseAuthException catch (e) {
       // Specific error handling based on FirebaseAuthException codes
-      String error = '';
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            "No user found for that email",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
-        ));
+        errorMessage = "No user found for that email.";
       } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-          "Wrong password provided",
-          style: TextStyle(fontSize: 18, color: Colors.black),
-        )));
+        errorMessage = "Wrong password provided.";
       } else if (e.code == 'invalid-email') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            "Invalid email format",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
-        ));
+        errorMessage = "Invalid email format.";
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-          "Check the Credentials Properly",
-          style: TextStyle(fontSize: 18, color: Colors.black),
-        )));
+        errorMessage = "Error: ${e.message}";
       }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          errorMessage,
+          style: const TextStyle(fontSize: 18, color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+      ));
 
       setState(() {
-        errorMessage = error;
+        errorMessage = errorMessage; // Update error message for any additional display.
       });
     }
   }
@@ -104,18 +98,25 @@ class _LoginPageState extends State<LoginScreen> {
     return Column(
       children: [
         SizedBox(
-          height: 110, width: 200,
-          child: Image.asset('assets/images/user_icon.png',
-          fit: BoxFit.cover,)),
-        const SizedBox(height: 25,),
+          height: 110,
+          width: 200,
+          child: Image.asset(
+            'assets/images/user_icon.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 25),
         Text(
           "Login",
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500)
+          style:
+              Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500),
         ),
-        const SizedBox(height: 20,),
-       Text("Enter your credentials",
-       style: Theme.of(context).textTheme.bodyMedium,),
-       const SizedBox(height: 25,),
+        const SizedBox(height: 20),
+        Text(
+          "Enter your credentials",
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 25),
       ],
     );
   }
@@ -138,8 +139,7 @@ class _LoginPageState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(18),
               borderSide: BorderSide.none,
             ),
-            fillColor: const Color.fromARGB(255, 96, 100, 163)
-                              .withOpacity(0.1),
+            fillColor: const Color.fromARGB(255, 96, 100, 163).withOpacity(0.1),
             filled: true,
             prefixIcon: const Icon(Icons.person),
           ),
@@ -159,8 +159,7 @@ class _LoginPageState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(18),
               borderSide: BorderSide.none,
             ),
-            fillColor: const Color.fromARGB(255, 96, 100, 163)
-                              .withOpacity(0.1),
+            fillColor: const Color.fromARGB(255, 96, 100, 163).withOpacity(0.1),
             filled: true,
             prefixIcon: const Icon(Icons.lock),
           ),
@@ -168,27 +167,11 @@ class _LoginPageState extends State<LoginScreen> {
         ),
         const SizedBox(height: 30),
         ElevatedButton(
-          //onPressed: signIn, // Call signIn function
           onPressed: () {
             if (_formkey.currentState!.validate()) {
-              setState(() {
-                email = emailcontroller.text;
-                password = passwordcontroller.text;
-                showDialog(context: context, builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text("Logged in"),
-                    content: const Text("Logged into Diems Solution SUccessfully!"),
-                    actions: [
-                      TextButton(onPressed: () {
-                        context.router.push(const HomeRoute());
-                      }, child: const Text("ok"))
-                    ],
-                  );
-                });
-              });
+              signIn(); // Call signIn to handle login logic
             }
-            signIn();
-          }, // Call signIn function
+          },
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -196,10 +179,10 @@ class _LoginPageState extends State<LoginScreen> {
           ),
           child: Text(
             "Login",
-            style:Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white)
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
           ),
         ),
-        const SizedBox(height: 30,),
+        const SizedBox(height: 30),
       ],
     );
   }
@@ -207,17 +190,13 @@ class _LoginPageState extends State<LoginScreen> {
   _forgotPassword(BuildContext context) {
     return TextButton(
       onPressed: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
         context.router.push(const ResetPasswordRoute());
       },
       child: const Text(
         "Forgot password?",
         style: TextStyle(color: Colors.blue, fontSize: 18),
       ),
-      
     );
-    
   }
 
   _signup(BuildContext context) {
@@ -228,7 +207,7 @@ class _LoginPageState extends State<LoginScreen> {
           "Don't have an account? ",
           style: TextStyle(fontSize: 16),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
             context.router.push(const SignupRoute());
